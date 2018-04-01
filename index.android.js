@@ -9,45 +9,55 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView,
+  Image,
+  Dimensions
 } from 'react-native';
+
+const width = Dimensions.get('screen').width;
 
 export default class instaclone extends Component {
   render() {
+
+    const fotos = [{
+      id: 1,
+      usuario: 'rodolfo'
+    }, 
+    {
+      id: 2,
+      usuario: 'rafael'
+    },
+    {
+      id: 3,
+      usuario: 'alberto'
+    }];
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <ScrollView style={{ marginTop: 20 }} >
+
+        { fotos.map( foto => 
+        
+           <View key={ foto.id }>
+               <Text> { foto.usuario } </Text> 
+               <Image source = {
+                   require('./resources/imagem/foto.jpg')
+                 }
+               style = {
+                 {
+                   width: width,
+                   height: width
+                 }
+               }
+               />
+           </View>
+           
+         )}
+
+
+      </ScrollView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('instaclone', () => instaclone);
