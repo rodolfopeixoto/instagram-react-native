@@ -17,19 +17,15 @@ export default class Post extends Component{
           
           <View style={styles.header}>
 
-            <Image source={
-                require('../../resources/imagem/foto.jpg')
-              }
+            <Image source={{ uri: this.props.foto.urlPerfil }}
             style={styles.profilePicture}
             />
 
-            <Text> { this.props.foto.usuario } </Text>
+            <Text> { this.props.foto.loginUsuario } </Text>
 
           </View>
           
-          <Image source={
-                require('../../resources/imagem/foto.jpg')
-              }
+          <Image source={{uri: this.props.foto.urlFoto}}
             style={styles.postPicture}
             />
         </View>

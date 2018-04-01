@@ -9,20 +9,21 @@ import Post from './components/Post';
 
 
 class instaclone extends Component {
-  render() {
+  
+  constructor(){
+    super();
+    this.state = {
+      fotos: []
+    }
+  }
 
-    const fotos = [{
-      id: 1,
-      usuario: 'rodolfo'
-    }, 
-    {
-      id: 2,
-      usuario: 'rafael'
-    },
-    {
-      id: 3,
-      usuario: 'alberto'
-    }];
+  componentDidMount(){
+    fetch('https://instalura-api.herokuapp.com/api/public/fotos/rafael')
+      .then( response => response.json() )
+      .then( json => this.setState({ fotos: json }))
+  }
+  
+  render() {
 
     return (
 
@@ -30,7 +31,7 @@ class instaclone extends Component {
       <FlatList
         style={styles.container}
         keyExtractor={ item => String(item.id) }
-        data={ fotos }
+        data={ this.state.fotos }
         renderItem={ ({ item } ) =>
 
         <Post foto={item} />
