@@ -5,29 +5,70 @@ import {
   View,
   FlatList,
   Image,
-  Dimensions
+  Dimensions,
+  TouchableOpacity
 } from 'react-native';
 
 const width = Dimensions.get('screen').width;
 
 export default class Post extends Component{
+
+  constructor(props){
+    super(props);
+    this.state = {
+      foto: this.props.foto
+    }
+  }
+
+
+  loadingIcon(likeada){
+    return likeada ? require('../../resources/imagem/likehouver.png') : require('../../resources/imagem/like.png')
+  }
+
+  like(){
+    const updatePicture = {
+      ...this.state.foto,
+      likeada: !this.state.foto.likeada
+    }
+    this.setState({ foto: updatePicture })
+  }
+
   render(){
+
+    const { foto } = this.state;
+
     return(
         <View>
           
           <View style={styles.header}>
 
-            <Image source={{ uri: this.props.foto.urlPerfil }}
+            <Image source={{ uri: foto.urlPerfil }}
             style={styles.profilePicture}
             />
 
-            <Text> { this.props.foto.loginUsuario } </Text>
+            <Text> { foto.loginUsuario } </Text>
 
           </View>
           
-          <Image source={{uri: this.props.foto.urlFoto}}
+          <Image source={{uri: foto.urlFoto}}
             style={styles.postPicture}
             />
+
+
+           <View
+             style={styles.footer}
+             >
+             <TouchableOpacity
+               onPress={ this.like.bind(this) }
+               >
+                <Image 
+                style={ styles.like }
+              source={ this.loadingIcon(foto.likeada) } 
+                />
+              </TouchableOpacity>
+            </View>
+
+
         </View>
     );
   }
@@ -52,5 +93,12 @@ const styles = StyleSheet.create({
   postPicture: {
     width: width,
     height: width
+  },
+  like: {
+    height: 50,
+    width: 50
+  },
+  footer: {
+    margin: 10
   }
 });
