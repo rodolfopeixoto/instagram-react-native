@@ -33,6 +33,38 @@ export default class Post extends Component{
     this.setState({ foto: updatePicture })
   }
 
+  showLikes(likers){
+
+
+    if(likers.length == 0 ) return;
+
+    return(
+
+      <Text
+        style={styles.likes}>
+
+        {likers.length} {likers.length > 1 ? 'curtidas' : 'curtida'}
+
+      </Text>  
+    );
+  }
+
+  showLegend(foto){
+    
+    if(foto.comentario === '' ) return;
+    
+    return(
+      <View
+        style={styles.comment}
+      >
+        <Text style={styles.titleComment}>{foto.loginUsuario}</Text>
+        <Text>
+          {foto.comentario}
+        </Text>
+      </View>
+    );
+  }
+
   render(){
 
     const { foto } = this.state;
@@ -66,6 +98,13 @@ export default class Post extends Component{
               source={ this.loadingIcon(foto.likeada) } 
                 />
               </TouchableOpacity>
+
+            { this.showLikes(foto.likers) }
+            
+
+            { this.showLegend(foto) }
+
+
             </View>
 
 
@@ -96,9 +135,20 @@ const styles = StyleSheet.create({
   },
   like: {
     height: 50,
-    width: 50
+    width: 50,
+    marginBottom: 10
   },
   footer: {
     margin: 10
+  },
+  likes:{
+    fontWeight: 'bold'
+  },
+  comment: {
+    flexDirection: 'row'
+  },
+  titleComment: {
+    fontWeight: 'bold',
+    marginRight: 5
   }
 });
